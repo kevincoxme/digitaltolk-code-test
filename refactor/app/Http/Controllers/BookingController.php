@@ -30,14 +30,16 @@ class BookingController extends Controller
     }
 
     /**
+     * Index method
+     * 
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         if($user_id = $request->get('user_id')) {
 
-            $response = $this->repository->getUsersJobs($user_id);
+            $response = $this->repository->getUserJobs($user_id);
 
         }
         elseif($request->__authenticatedUser->user_type == env('ADMIN_ROLE_ID') || $request->__authenticatedUser->user_type == env('SUPERADMIN_ROLE_ID'))
@@ -49,8 +51,10 @@ class BookingController extends Controller
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * Show method
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -60,8 +64,10 @@ class BookingController extends Controller
     }
 
     /**
+     * Store method
+     * 
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -74,9 +80,11 @@ class BookingController extends Controller
     }
 
     /**
-     * @param $id
+     * Update method
+     * 
+     * @param int $id
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function update($id, Request $request)
     {
@@ -88,8 +96,10 @@ class BookingController extends Controller
     }
 
     /**
+     * Immediate Job Email method
+     * 
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function immediateJobEmail(Request $request)
     {
@@ -102,6 +112,8 @@ class BookingController extends Controller
     }
 
     /**
+     * Get history method
+     * 
      * @param Request $request
      * @return mixed
      */
@@ -109,7 +121,7 @@ class BookingController extends Controller
     {
         if($user_id = $request->get('user_id')) {
 
-            $response = $this->repository->getUsersJobsHistory($user_id, $request);
+            $response = $this->repository->getUserJobsHistory($user_id, $request);
             return response($response);
         }
 
@@ -117,8 +129,10 @@ class BookingController extends Controller
     }
 
     /**
+     * Accept job method
+     * 
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function acceptJob(Request $request)
     {
@@ -130,6 +144,12 @@ class BookingController extends Controller
         return response($response);
     }
 
+    /**
+     * Accept job with Id method
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function acceptJobWithId(Request $request)
     {
         $data = $request->get('job_id');
@@ -141,8 +161,10 @@ class BookingController extends Controller
     }
 
     /**
+     * Cancel job method
+     * 
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function cancelJob(Request $request)
     {
@@ -155,8 +177,10 @@ class BookingController extends Controller
     }
 
     /**
+     * End job method
+     * 
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function endJob(Request $request)
     {
@@ -168,6 +192,12 @@ class BookingController extends Controller
 
     }
 
+    /**
+     * Customer not call method
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function customerNotCall(Request $request)
     {
         $data = $request->all();
@@ -179,8 +209,10 @@ class BookingController extends Controller
     }
 
     /**
+     * Get potential jobs method
+     * 
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function getPotentialJobs(Request $request)
     {
@@ -192,6 +224,12 @@ class BookingController extends Controller
         return response($response);
     }
 
+    /**
+     * Distance fee method
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function distanceFeed(Request $request)
     {
         $data = $request->all();
@@ -254,6 +292,12 @@ class BookingController extends Controller
         return response('Record updated!');
     }
 
+    /**
+     * Reopen method
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function reopen(Request $request)
     {
         $data = $request->all();
@@ -261,6 +305,13 @@ class BookingController extends Controller
 
         return response($response);
     }
+
+    /**
+     * Resend notifications method
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
 
     public function resendNotifications(Request $request)
     {
@@ -273,9 +324,10 @@ class BookingController extends Controller
     }
 
     /**
-     * Sends SMS to Translator
+     * Resend sms notifications method
+     * 
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\Response
      */
     public function resendSMSNotifications(Request $request)
     {
